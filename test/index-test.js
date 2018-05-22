@@ -2,15 +2,9 @@ const {assert} = require('chai');
 const request = require('supertest');
 const app = require('../server');
 const fs = require('fs');
-const PATH = require('path');
 
-const root = PATH.join(__dirname, './public');
-try {
-    fs.mkdirSync(root);
-} catch (e) {
-    // do nothing
-}
-app.config({root});
+app.config();
+const root = app._cache.root;
 
 const req = ({method = 'get', url, query, body, headers}) => {
     const r = request(app)[method](url);

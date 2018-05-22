@@ -2,6 +2,8 @@ const pick = require('lodash.pick');
 const PATH = require('path');
 const fs = require('fs');
 
+let initialized;
+
 const getDftOpts = () => ({
     port: 5555,
     root: 'contracts'
@@ -17,6 +19,11 @@ const pickFields = (opts, fields, required) => {
 };
 
 const config = opts => {
+    if (initialized) {
+        return;
+    }
+    initialized = true;
+
     opts = Object.assign(
         getDftOpts(),
         opts

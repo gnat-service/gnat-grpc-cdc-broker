@@ -98,5 +98,6 @@ app._getFilename = getFilename;
 app._writeFileAsync = writeFileAsync;
 app._readFileAsync = readFileAsync;
 
+app._cache = configs;
 app.config = configs.config;
 module.exports = app;
