@@ -2,7 +2,11 @@ const pick = require('lodash.pick');
 const PATH = require('path');
 const fs = require('fs');
 
-const cache = {};
+const getDftOpts = () => ({
+    port: 5555,
+    root: 'contracts'
+});
+const cache = getDftOpts();
 
 const pickFields = (opts, fields, required) => {
     const emptyFields = fields.some(field => [null, undefined].includes(opts[field]));
@@ -14,10 +18,8 @@ const pickFields = (opts, fields, required) => {
 
 const config = opts => {
     opts = Object.assign(
-        {
-            port: 5555,
-            root: 'contracts'
-        }
+        getDftOpts(),
+        opts
     );
     if (opts.root && !PATH.isAbsolute(opts.root)) {
         opts.root = PATH.join(process.cwd(), opts.root);
