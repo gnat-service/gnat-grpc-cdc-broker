@@ -35,10 +35,16 @@ const postHandler = async (paths, body) => {
     } else {
         text = JSON.stringify(body);
     }
-    await writeFileAsync(getFilename(paths), text);
+    const path = getFilename(paths);
+    await writeFileAsync(path, text);
+    console.log(`Added/Updated ${path}.`);
 };
 
-const delHandler = async (paths) => unlinkAsync(getFilename(paths));
+const delHandler = async (paths) => {
+    const path = getFilename(paths);
+    await unlinkAsync(path);
+    console.log(`Deleted ${path}.`);
+};
 
 const handler = cb =>
     async (req, res, ...args) => {
