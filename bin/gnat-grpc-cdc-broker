@@ -1,0 +1,28 @@
+#!/usr/bin/env node
+const program = require('commander');
+const {version} = require('../package.json');
+const server = require('../');
+const configs = require('../configs');
+const pick = require('lodash.pick');
+
+program.version(version);
+
+const options = {
+    port: {short: 'p', desc: 'The port that broker listening on.'},
+    root: {short: 't', desc: 'The repo of the contract files.'}
+};
+const keys = Object.keys(options);
+
+Object.keys(options).forEach(key => {
+    const {short, desc} = options[key];
+    program.option(`-${short} --${key} [value]`, desc);
+});
+
+program.parse(process.argv);
+
+const cfgs = pick(program, keys);
+
+server.config(cfgs);
+server.start(() =>
+    console.log(`Server listening on ${configs.port}`)
+);

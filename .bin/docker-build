@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+TAG=$(node .bin/print-version.js $(pwd))
+IMG=joc98/gnat-grpc-cdc-broker
+docker build -t $IMG:$TAG -t $IMG:latest .

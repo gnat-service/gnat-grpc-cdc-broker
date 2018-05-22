@@ -1,0 +1,28 @@
+{
+  "name": "gnat-grpc-cdc-broker",
+  "version": "0.0.1",
+  "main": "index.js",
+  "license": "MIT",
+  "bin": "./bin/gnat-grpc-cdc-broker",
+  "scripts": {
+    "prepublishOnly": "yarn test",
+    "test": "mocha test",
+    "postpublish": "yarn run docker:build",
+    "docker:build": "./.bin/docker-build",
+    "docker:push": "docker push joc98/gnat-grpc-cdc-broker"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "chai-as-promised": "^7.1.1",
+    "lodash": "^4.17.10",
+    "mocha": "^5.1.1",
+    "supertest": "^3.1.0"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "commander": "^2.15.1",
+    "express": "^4.16.3",
+    "lodash.isempty": "^4.4.0",
+    "lodash.pick": "^4.4.0"
+  }
+}
