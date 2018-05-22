@@ -47,7 +47,7 @@ describe('/contract', () => {
         afterEach(() => fs.unlinkSync(app._getFilename(paths)));
         it('should write data to a json file', async () => {
             const r = await writeJson(json);
-            assert.notProperty(r.body, 'ok');
+            assert.propertyVal(r.body, 'ok', true);
             const actual = await getFileData(...paths);
             assert.equal(json, actual);
         });
@@ -59,7 +59,7 @@ describe('/contract', () => {
                 assert.equal((await getFileData('p', 'c')).toString(), json)
                 const expectation = {key: '1'};
                 const r = await writeJson(expectation);
-                assert.notProperty(r.body, 'ok');
+                assert.propertyVal(r.body, 'ok', true);
                 const actual = (await getFileData('p', 'c')).toString();
                 assert.deepEqual(actual, JSON.stringify(expectation));
             });
@@ -73,7 +73,7 @@ describe('/contract', () => {
         afterEach(() => fs.unlinkSync(app._getFilename(['p', 'c', 't'])));
         it('should write data to a json file', async () => {
             const r = await writeJson(json);
-            assert.notProperty(r.body, 'ok');
+            assert.propertyVal(r.body, 'ok', true);
             const actual = await getFileData('p', 'c', 't');
             assert.equal(json, actual);
         });
@@ -85,7 +85,7 @@ describe('/contract', () => {
                 assert.equal((await getFileData('p', 'c', 't')).toString(), json)
                 const expectation = {key: '1'};
                 const r = await writeJson(expectation);
-                assert.notProperty(r.body, 'ok');
+                assert.propertyVal(r.body, 'ok', true);
                 const actual = (await getFileData('p', 'c', 't')).toString();
                 assert.deepEqual(actual, JSON.stringify(expectation));
             });
@@ -103,7 +103,8 @@ describe('/contract', () => {
 
         it('should get json response', async () => {
             const {body} = await getJson();
-            assert.deepEqual(body, obj);
+            assert.propertyVal(body, 'ok', true);
+            assert.deepPropertyVal(body, 'data', obj);
         });
     });
     describe('GET /:provider/:consumer/:tag', () => {
@@ -120,7 +121,8 @@ describe('/contract', () => {
 
         it('should get json response', async () => {
             const {body} = await getJson();
-            assert.deepEqual(body, obj);
+            assert.propertyVal(body, 'ok', true);
+            assert.deepPropertyVal(body, 'data', obj);
         });
     });
 

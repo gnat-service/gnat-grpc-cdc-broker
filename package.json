@@ -1,13 +1,13 @@
 {
   "name": "gnat-grpc-cdc-broker",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "index.js",
   "license": "MIT",
   "bin": "./bin/gnat-grpc-cdc-broker",
   "scripts": {
     "prepublishOnly": "yarn test",
     "test": "mocha test",
-    "postpublish": "yarn run docker:build",
+    "postpublish": "yarn run docker:build && yarn run docker:push",
     "docker:build": "./.bin/docker-build",
     "docker:push": "docker push joc98/gnat-grpc-cdc-broker"
   },

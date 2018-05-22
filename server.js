@@ -44,7 +44,7 @@ const handler = cb =>
     async (req, res, ...args) => {
         try {
             const result = await cb(req, res, ...args);
-            result && res.send(result);
+            res.send({ok: true, data: result});
         } catch (err) {
             res.send({ok: false, message: err.message, stack: err.stack}).end();
         }
